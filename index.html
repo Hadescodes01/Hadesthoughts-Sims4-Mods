@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hadesthoughts — Sims 4 creator</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<meta name="description" content="Hadesthoughts — Sims 4 creations, CC downloads, and a growing Blender & game dev journey." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #F3E7D6;
+    --bg-panel: #FBF4E8;
+    --bg-panel-alt: #EDDCBC;
+    --border: #DDC6A1;
+    --text: #4A3524;
+    --text-muted: #8A6F53;
+    --text-faint: #B39D7C;
+    --accent: #A9714A;
+    --accent-dim: rgba(169, 113, 74, 0.12);
+    --sage: #83957A;
+    --sage-dim: rgba(131, 149, 122, 0.14);
+    --white: #FFFDF8;
+
+    --font-display: 'Fredoka', sans-serif;
+    --font-body: 'Nunito', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    background-image: radial-gradient(ellipse 800px 500px at 90% 0%, rgba(131,149,122,0.10), transparent),
+                       radial-gradient(ellipse 700px 500px at 0% 20%, rgba(169,113,74,0.08), transparent);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 26px; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage);
+    font-weight: 500;
+  }
+
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0; color: var(--text); }
+
+  section { padding: 60px 0; }
+  section .section-head { margin-bottom: 32px; }
+  section .section-head h2 { font-size: 28px; margin-top: 8px; }
+  section .section-head p.sub { color: var(--text-muted); margin: 8px 0 0; max-width: 52ch; }
+
+  button {
+    font-family: var(--font-body);
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    border-radius: 100px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--white);
+    padding: 13px 26px;
+    font-size: 15px;
+    box-shadow: 0 8px 20px -8px rgba(169,113,74,0.55);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -8px rgba(169,113,74,0.6); }
+
+  .btn-secondary {
+    background: var(--bg-panel);
+    border: 2px solid var(--border);
+    color: var(--text);
+    padding: 11px 24px;
+    font-size: 15px;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- Nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(243, 231, 214, 0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--border);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+
+  .logo { display: flex; align-items: center; gap: 9px; font-family: var(--font-display); font-size: 17px; font-weight: 600; }
+  .logo svg { width: 30px; height: 30px; }
+
+  .nav-links { display: flex; gap: 22px; font-size: 14.5px; font-weight: 600; color: var(--text-muted); align-items: center; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links .nav-cta {
+    background: var(--sage); color: var(--white); padding: 8px 18px; border-radius: 100px;
+  }
+  .nav-links .nav-cta:hover { color: var(--white); opacity: 0.9; }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 64px 0 40px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+
+  .hero h1 { font-size: clamp(32px, 4.6vw, 46px); line-height: 1.15; margin: 14px 0 16px; }
+  .hero h1 .accent { color: var(--accent); }
+  .hero p.lede { color: var(--text-muted); font-size: 16.5px; max-width: 44ch; margin: 0 0 26px; }
+  .hero .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .hero-art { position: relative; display: flex; justify-content: center; }
+  .speech-bubble {
+    position: absolute; top: -6px; right: 10px;
+    background: var(--white); border: 2px solid var(--border);
+    padding: 8px 14px; border-radius: 16px; font-family: var(--font-display);
+    font-size: 13.5px; font-weight: 600; color: var(--accent);
+    box-shadow: 0 6px 14px -6px rgba(74,53,36,0.2);
+  }
+  .speech-bubble::after {
+    content: ""; position: absolute; bottom: -8px; left: 26px;
+    border-width: 8px 8px 0 0; border-style: solid;
+    border-color: var(--white) transparent transparent transparent;
+  }
+
+  /* ---------- Fun facts strip ---------- */
+  .fact-strip { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+  .fact-pill {
+    background: var(--bg-panel); border: 2px solid var(--border);
+    border-radius: 100px; padding: 7px 15px; font-size: 13.5px; font-weight: 700; color: var(--text-muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* ---------- About ---------- */
+  .about-card {
+    background: var(--bg-panel); border: 2px solid var(--border); border-radius: 22px;
+    padding: 34px; display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center;
+  }
+  .about-card p { color: var(--text-muted); font-size: 15.5px; margin: 0 0 12px; max-width: 58ch; }
+  .about-card p:last-of-type { margin-bottom: 0; }
+
+  /* ---------- Creations gallery ---------- */
+  .creation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+  .creation-card {
+    background: var(--bg-panel); border: 2px solid var(--border); border-radius: 18px; overflow: hidden;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .creation-card:hover { transform: translateY(-4px); box-shadow: 0 16px 30px -14px rgba(74,53,36,0.25); }
+  .creation-thumb {
+    height: 170px; display: flex; align-items: center; justify-content: center;
+    font-size: 42px; background: var(--bg-panel-alt);
+  }
+  .creation-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .creation-body { padding: 16px 18px 20px; }
+  .creation-body h3 { font-size: 16.5px; margin-bottom: 6px; }
+  .creation-body p { color: var(--text-muted); font-size: 13.5px; margin: 0 0 10px; }
+  .creation-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-family: var(--font-mono); font-size: 11px; color: var(--sage);
+    background: var(--sage-dim); border-radius: 6px; padding: 3px 8px;
+  }
+
+  /* ---------- Downloads ---------- */
+  .download-list { display: flex; flex-direction: column; gap: 12px; }
+  .download-row {
+    background: var(--bg-panel); border: 2px solid var(--border); border-radius: 16px;
+    padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  }
+  .download-info { display: flex; align-items: center; gap: 14px; }
+  .download-icon { font-size: 26px; }
+  .download-name { font-weight: 700; font-size: 15.5px; }
+  .download-meta { font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); margin-top: 3px; }
+  .download-meta .ver { color: var(--accent); }
+
+  /* ---------- Requests / chatbox ---------- */
+  .chat-panel {
+    background: var(--bg-panel); border: 2px solid var(--border); border-radius: 22px;
+    padding: 26px; max-width: 620px;
+  }
+  .chat-bubble {
+    background: var(--sage-dim); border-radius: 16px 16px 16px 4px;
+    padding: 12px 16px; font-size: 14.5px; color: var(--text); max-width: 85%; margin-bottom: 18px;
+  }
+  .chat-form label { font-size: 13px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px; }
+  .chat-form input, .chat-form textarea {
+    width: 100%; font-family: var(--font-body); font-size: 14.5px;
+    background: var(--white); border: 2px solid var(--border); border-radius: 12px;
+    padding: 11px 14px; margin-bottom: 14px; color: var(--text); resize: vertical;
+  }
+  .chat-form input:focus, .chat-form textarea:focus { border-color: var(--accent); outline: none; }
+  .chat-form textarea { min-height: 90px; }
+  .form-note { font-size: 12.5px; color: var(--text-faint); margin-top: 10px; }
+
+  .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+  .tab-btn {
+    background: var(--bg); border: 2px solid var(--border); border-radius: 100px;
+    padding: 8px 18px; font-size: 13.5px; font-weight: 700; color: var(--text-muted); cursor: pointer;
+  }
+  .tab-btn.active { background: var(--accent); border-color: var(--accent); color: var(--white); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ---------- Donations ---------- */
+  .donate-card {
+    background: var(--bg-panel); border: 2px solid var(--border); border-radius: 22px;
+    padding: 32px; display: grid; grid-template-columns: auto 1fr; gap: 30px; align-items: center;
+  }
+  .donate-amount { font-family: var(--font-display); font-size: 40px; color: var(--accent); }
+  .donate-amount .approx { font-family: var(--font-mono); font-size: 14px; color: var(--text-faint); display: block; margin-top: 4px; }
+  .bank-box {
+    background: var(--white); border: 2px dashed var(--border); border-radius: 14px;
+    padding: 16px 18px; margin-top: 16px; font-family: var(--font-mono); font-size: 14px;
+  }
+  .bank-box .row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; }
+  .bank-box .label { color: var(--text-faint); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .bank-box .copy-btn {
+    background: var(--sage); color: var(--white); border-radius: 8px; padding: 5px 12px; font-size: 12px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer { border-top: 2px solid var(--border); padding: 28px 0 40px; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+  footer .foot-links { display: flex; gap: 18px; font-size: 13.5px; font-weight: 700; color: var(--text-muted); }
+  footer .foot-links a:hover { color: var(--accent); }
+  footer .copy { font-size: 12.5px; color: var(--text-faint); }
+
+  @media (max-width: 780px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-art { order: -1; max-width: 260px; margin: 0 auto; }
+    .about-card { grid-template-columns: 1fr; text-align: left; }
+    .about-card .hero-art { display: none; }
+    .donate-card { grid-template-columns: 1fr; text-align: center; }
+    .nav-links { gap: 14px; font-size: 13px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">
+      <svg viewBox="0 0 60 60"><ellipse cx="30" cy="36" rx="22" ry="16" fill="#A9714A"/><ellipse cx="43" cy="26" rx="13" ry="11" fill="#BE8A5F"/><ellipse cx="36" cy="16" rx="4" ry="5" fill="#A9714A"/><ellipse cx="48" cy="17" rx="4" ry="5" fill="#A9714A"/><ellipse cx="47" cy="24" rx="1.6" ry="2" fill="#4A3524"/><ellipse cx="49" cy="30" rx="3" ry="2" fill="#8A6F53"/></svg>
+      Hadesthoughts
+    </a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#creations">Creations</a>
+      <a href="#downloads">Downloads</a>
+      <a href="#requests">Requests</a>
+      <a href="https://instagram.com/_hadesthoughts" target="_blank" rel="noopener" aria-label="Instagram" style="display:flex;align-items:center;">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a class="nav-cta" href="#donate">Support 🌾</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+
+  <header class="hero wrap">
+    <div>
+      <p class="eyebrow">welcome to the burrow</p>
+      <h1>Hi, I'm <span class="accent">Hadesthoughts</span> 🌾</h1>
+      <p class="lede">Sims 4 creator by hobby, currently paddling into Blender and game dev — sharing CC, builds, and whatever I make along the way.</p>
+      <div class="cta-row">
+        <a href="#creations"><button class="btn-primary">See my creations</button></a>
+        <a href="#donate"><button class="btn-secondary">Support the burrow</button></a>
+      </div>
+      <div class="fact-strip">
+        <span class="fact-pill">🎮 Sims 4 obsessed</span>
+        <span class="fact-pill">🧊 Learning Blender</span>
+        <span class="fact-pill">🕹️ Game dev in progress</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <span class="speech-bubble">splash!</span>
+      <svg viewBox="0 0 300 220" width="100%" style="max-width:320px">
+        <ellipse cx="150" cy="185" rx="130" ry="26" fill="#83957A" opacity="0.35"/>
+        <ellipse cx="150" cy="150" rx="105" ry="55" fill="#C79B6E"/>
+        <ellipse cx="150" cy="150" rx="105" ry="55" fill="none" stroke="#A9714A" stroke-width="2" opacity="0.3"/>
+        <ellipse cx="150" cy="115" rx="72" ry="58" fill="#A9714A"/>
+        <ellipse cx="205" cy="90" rx="42" ry="36" fill="#BE8A5F"/>
+        <ellipse cx="188" cy="62" rx="12" ry="15" fill="#A9714A"/>
+        <ellipse cx="216" cy="60" rx="12" ry="15" fill="#A9714A"/>
+        <ellipse cx="188" cy="63" rx="6" ry="8" fill="#8A5C3A"/>
+        <ellipse cx="216" cy="61" rx="6" ry="8" fill="#8A5C3A"/>
+        <ellipse cx="216" cy="80" rx="4.5" ry="5.5" fill="#3A2A1C"/>
+        <ellipse cx="228" cy="98" rx="9" ry="6" fill="#8A6F53"/>
+        <ellipse cx="230" cy="98" rx="3" ry="2.2" fill="#3A2A1C"/>
+        <path d="M100 165 q50 30 105 5" stroke="#8A6F53" stroke-width="2" fill="none" opacity="0.4"/>
+        <ellipse cx="70" cy="175" rx="10" ry="5" fill="#9FC1E0" opacity="0.5"/>
+        <ellipse cx="230" cy="170" rx="8" ry="4" fill="#9FC1E0" opacity="0.5"/>
+      </svg>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">about me</p>
+        <h2>The person behind the burrow</h2>
+      </div>
+      <div class="about-card">
+        <div>
+          <p>I've been playing The Sims 4 for months and finally started turning my ideas into actual downloadable things — CC, builds, and little bits of gameplay content.</p>
+          <p>Right now I'm teaching myself Blender and dipping my toes into game dev, so expect that journey (mistakes and all) to slowly show up here too.</p>
+          <p>This site is a work in progress, same as I am. Thanks for stopping by 🌾</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="creations">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">gallery</p>
+        <h2>My creations</h2>
+        <p class="sub">A growing collection of Sims 4 content and (soon) Blender experiments. New pieces get added here as I finish them.</p>
+      </div>
+      <div class="creation-grid" id="creationGrid"></div>
+    </div>
+  </section>
+
+  <section id="downloads">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">get stuff</p>
+        <h2>Downloads</h2>
+        <p class="sub">Everything I've released, with the current version so you know if you're up to date.</p>
+      </div>
+      <div class="download-list" id="downloadList"></div>
+    </div>
+  </section>
+
+  <section id="requests">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">say hi</p>
+        <h2>Requests &amp; feedback</h2>
+        <p class="sub">Got an idea for something you'd like to see, or did something break? Pick a tab below — it opens a pre-filled email, nothing gets posted publicly.</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="request" onclick="switchTab('request')">💡 Request something</button>
+        <button class="tab-btn" data-tab="complaint" onclick="switchTab('complaint')">🫖 Something's wrong</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-request">
+        <div class="chat-panel">
+          <div class="chat-bubble">Hey! Got a CC idea, a build request, or something you wish existed? Tell me here 🐹</div>
+          <div class="chat-form">
+            <label for="reqName">Your name (optional)</label>
+            <input id="reqName" type="text" placeholder="What should I call you?" />
+            <label for="reqMsg">What would you like to see?</label>
+            <textarea id="reqMsg" placeholder="I'd love a set of..."></textarea>
+            <button class="btn-primary" onclick="sendMail('request')">Send request 🌾</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-complaint">
+        <div class="chat-panel">
+          <div class="chat-bubble">Something broken, missing, or just annoying? Let me know and I'll take a look 🫖</div>
+          <div class="chat-form">
+            <label for="compName">Your name (optional)</label>
+            <input id="compName" type="text" placeholder="What should I call you?" />
+            <label for="compMsg">What's going on?</label>
+            <textarea id="compMsg" placeholder="This download link doesn't work..."></textarea>
+            <button class="btn-primary" onclick="sendMail('complaint')">Send feedback</button>
+          </div>
+        </div>
+      </div>
+      <p class="form-note">This opens your email app with the message pre-filled — nothing is stored or sent automatically.</p>
+    </div>
+  </section>
+
+  <section id="donate">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">support the burrow</p>
+        <h2>Buy me a lily pad 🌿</h2>
+        <p class="sub">If something I made made your game a little better, donations are always appreciated (never required!), They'd also help with saving up for a better laptop to support my journey!</p>
+      </div>
+      <div class="donate-card">
+        <div>
+          <div class="donate-amount">
+            ₦2,000
+            <span class="approx" id="approxAmount">loading estimate…</span>
+          </div>
+        </div>
+        <div>
+          <div class="bank-box">
+            <div class="row"><span class="label">Bank</span><span id="bankName">Access Bank</span></div>
+            <div class="row"><span class="label">Account number</span>
+              <span style="display:flex; align-items:center; gap:10px;">
+                <span id="acctNum">1919886941</span>
+                <button class="copy-btn" onclick="copyAccount()">Copy</button>
+              </span>
+            </div>
+            <div class="row"><span class="label">Account name</span><span id="acctName">Alamutu Thanaa</span></div>
+          </div>
+          <p class="form-note" id="copyNote">₦2,000 is just a suggested amount — send whatever feels right for wherever you're at. Double-check the account name matches before sending!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="copy">🐹 made with love, one save file at a time</p>
+    <div class="foot-links">
+      <a href="https://instagram.com/_hadesthoughts" target="_hadesthoughtd" rel="noopener">Instagram</a>
+      <a href="https://patreon.com/Hadesmods?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink" target="Hadesmods" rel="noopener">patreon</a>
+      <a href="#creations">Creations</a>
+      <a href="#downloads">Downloads</a>
+      <a href="#donate">Support</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // =====================================================================
+  // EDIT ME: your basic info, gallery pieces, and downloads all live here.
+  // =====================================================================
+  const CONFIG = {
+    contactEmail: "alamututhanaa744@gmail.com",
+    bank: { name: "Access Bank", account: "1919886941", accountName: "Alamutu Thanaa"},
+    donationNGN: 2000,
+  };
+
+  // Add a new creation any time by adding an object to this list.
+  // image: leave as null to show a placeholder emoji tile instead of a photo.
+  const creations = [
+    {
+      title: "Sims 4 Mod Organizer",
+      description: "A mod organizer that helps you organize your mod folder without you having to do it manually",
+      tags: ["Tool"],
+      image: null,
+      emoji: "👗",
+    },
+      ];
+
+  // Add a new download the same way.
+  const downloads = [
+    {
+      name: "Sims 4 Mod Organizer",
+      icon: "🗂️",
+      version: "v0.0",
+      updated: "2026",
+      link: "https://github.com/user-attachments/files/29925791/Sims4ModOrganizer.zip",
+    },
+  ];
+
+  const creationGrid = document.getElementById("creationGrid");
+  creations.forEach(c => {
+    const card = document.createElement("div");
+    card.className = "creation-card";
+    const thumb = c.image
+      ? `<img src="${c.image}" alt="${c.title}" />`
+      : `${c.emoji || "🐹"}`;
+    card.innerHTML = `
+      <div class="creation-thumb">${thumb}</div>
+      <div class="creation-body">
+        <h3>${c.title}</h3>
+        <p>${c.description}</p>
+        <div class="creation-tags">${c.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+      </div>
+    `;
+    creationGrid.appendChild(card);
+  });
+
+  const downloadList = document.getElementById("downloadList");
+  downloads.forEach(d => {
+    const row = document.createElement("div");
+    row.className = "download-row";
+    row.innerHTML = `
+      <div class="download-info">
+        <span class="download-icon">${d.icon}</span>
+        <div>
+          <div class="download-name">${d.name}</div>
+          <div class="download-meta"><span class="ver">${d.version}</span> · updated ${d.updated}</div>
+        </div>
+      </div>
+      <a href="${d.link}"><button class="btn-secondary">Download</button></a>
+    `;
+    downloadList.appendChild(row);
+  });
+
+  function switchTab(tab) {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
+    document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+    document.getElementById("tab-" + tab).classList.add("active");
+  }
+
+  function sendMail(type) {
+    const isRequest = type === "request";
+    const name = document.getElementById(isRequest ? "reqName" : "compName").value || "Anonymous";
+    const msg = document.getElementById(isRequest ? "reqMsg" : "compMsg").value;
+    const subjectTag = isRequest ? "Request" : "Feedback";
+    const subject = encodeURIComponent(`[Hadesthoughts site] ${subjectTag} from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\n\n${msg}`);
+    window.location.href = `mailto:${CONFIG.contactEmail}?subject=${subject}&body=${body}`;
+  }
+
+  function copyAccount() {
+    navigator.clipboard.writeText(CONFIG.bank.account).then(() => {
+      const note = document.getElementById("copyNote");
+      const original = note.textContent;
+      note.textContent = "Copied! ✅";
+      setTimeout(() => { note.textContent = original; }, 1800);
+    });
+  }
+
+  // Best-effort local-currency estimate based on browser language.
+  // Falls back to just showing the Naira amount if the lookup fails.
+  const LOCALE_CURRENCY = {
+    "en-US": "USD", "en-CA": "CAD", "en-GB": "GBP", "en-AU": "AUD", "en-NZ": "NZD",
+    "en-IE": "EUR", "de": "EUR", "fr": "EUR", "es": "EUR", "it": "EUR", "nl": "EUR", "pt-PT": "EUR",
+    "en-IN": "INR", "hi": "INR", "ja": "JPY", "ko": "KRW", "zh": "CNY",
+    "en-ZA": "ZAR", "en-GH": "GHS", "en-KE": "KES", "en-NG": "NGN",
+    "ar-SA": "SAR", "ar-AE": "AED", "pt-BR": "BRL", "es-MX": "MXN",
+  };
+
+  (function estimateDonation() {
+    const el = document.getElementById("approxAmount");
+    const lang = navigator.language || "en-US";
+    const base = lang.split("-")[0];
+    const currency = LOCALE_CURRENCY[lang] || LOCALE_CURRENCY[base] || "USD";
+
+    if (currency === "NGN") { el.textContent = ""; return; }
+
+    fetch("https://open.er-api.com/v6/latest/NGN")
+      .then(r => r.json())
+      .then(data => {
+        const rate = data && data.rates && data.rates[currency];
+        if (!rate) { el.textContent = ""; return; }
+        const converted = (CONFIG.donationNGN * rate).toFixed(2);
+        el.textContent = `≈ ${converted} ${currency} (estimate)`;
+      })
+      .catch(() => { el.textContent = ""; });
+  })();
+</script>
+
+</body>
+</html>
