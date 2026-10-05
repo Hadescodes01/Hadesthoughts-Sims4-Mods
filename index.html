@@ -3,14 +3,31 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hadesthoughts — Sims 4 creator</title>
+<title>Hadesthoughts — Sims 4 arranged marriage mod (Noble Favors), CC &amp; tools</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-<meta name="description" content="Hadesthoughts — Sims 4 creations, CC downloads, and a growing Blender & game dev journey." />
-
+<meta name="description" content="Noble Favors is a work-in-progress Sims 4 arranged marriage mod for royal sims by Hadesthoughts. Also: a Sims 4 mod organizer, downloads, and updates." />
+<meta name="keywords" content="sims 4 arranged marriage mod, sims 4 royal mod, sims 4 noble mod, sims 4 betrothal mod, Noble Favors, Hadesthoughts, sims 4 mods" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Noble Favors — Sims 4 arranged marriage mod by Hadesthoughts" />
+<meta property="og:description" content="A work-in-progress arranged marriage mod for royal sims in The Sims 4. Follow development on Patreon." />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Hadesthoughts",
+  "description": "Sims 4 mods by Hadesthoughts, including the Noble Favors arranged marriage mod and the Sims 4 Mod Organizer.",
+  "sameAs": [
+    "https://www.patreon.com/Hadesmods",
+    "https://instagram.com/_hadesthoughts"
+  ]
+}
+</script>
+ 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
+ 
 <style>
   :root {
     --bg: #F3E7D6;
@@ -25,15 +42,15 @@
     --sage: #83957A;
     --sage-dim: rgba(131, 149, 122, 0.14);
     --white: #FFFDF8;
-
+ 
     --font-display: 'Fredoka', sans-serif;
     --font-body: 'Nunito', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
   }
-
+ 
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-
+ 
   body {
     margin: 0;
     background: var(--bg);
@@ -44,12 +61,12 @@
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
-
+ 
   a { color: inherit; text-decoration: none; }
   :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-
+ 
   .wrap { max-width: 1000px; margin: 0 auto; padding: 0 26px; }
-
+ 
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 12.5px;
@@ -58,14 +75,14 @@
     color: var(--sage);
     font-weight: 500;
   }
-
+ 
   h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0; color: var(--text); }
-
+ 
   section { padding: 60px 0; }
   section .section-head { margin-bottom: 32px; }
   section .section-head h2 { font-size: 28px; margin-top: 8px; }
   section .section-head p.sub { color: var(--text-muted); margin: 8px 0 0; max-width: 52ch; }
-
+ 
   button {
     font-family: var(--font-body);
     font-weight: 700;
@@ -74,7 +91,7 @@
     border-radius: 100px;
     transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
   }
-
+ 
   .btn-primary {
     background: var(--accent);
     color: var(--white);
@@ -83,7 +100,7 @@
     box-shadow: 0 8px 20px -8px rgba(169,113,74,0.55);
   }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -8px rgba(169,113,74,0.6); }
-
+ 
   .btn-secondary {
     background: var(--bg-panel);
     border: 2px solid var(--border);
@@ -92,7 +109,7 @@
     font-size: 15px;
   }
   .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-
+ 
   /* ---------- Nav ---------- */
   nav {
     position: sticky; top: 0; z-index: 30;
@@ -101,25 +118,25 @@
     border-bottom: 2px solid var(--border);
   }
   nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-
+ 
   .logo { display: flex; align-items: center; gap: 9px; font-family: var(--font-display); font-size: 17px; font-weight: 600; }
   .logo svg { width: 30px; height: 30px; }
-
+ 
   .nav-links { display: flex; gap: 22px; font-size: 14.5px; font-weight: 600; color: var(--text-muted); align-items: center; }
   .nav-links a:hover { color: var(--accent); }
   .nav-links .nav-cta {
     background: var(--sage); color: var(--white); padding: 8px 18px; border-radius: 100px;
   }
   .nav-links .nav-cta:hover { color: var(--white); opacity: 0.9; }
-
+ 
   /* ---------- Hero ---------- */
   .hero { padding: 64px 0 40px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
-
+ 
   .hero h1 { font-size: clamp(32px, 4.6vw, 46px); line-height: 1.15; margin: 14px 0 16px; }
   .hero h1 .accent { color: var(--accent); }
   .hero p.lede { color: var(--text-muted); font-size: 16.5px; max-width: 44ch; margin: 0 0 26px; }
   .hero .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
-
+ 
   .hero-art { position: relative; display: flex; justify-content: center; }
   .speech-bubble {
     position: absolute; top: -6px; right: 10px;
@@ -133,7 +150,7 @@
     border-width: 8px 8px 0 0; border-style: solid;
     border-color: var(--white) transparent transparent transparent;
   }
-
+ 
   /* ---------- Fun facts strip ---------- */
   .fact-strip { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
   .fact-pill {
@@ -141,7 +158,7 @@
     border-radius: 100px; padding: 7px 15px; font-size: 13.5px; font-weight: 700; color: var(--text-muted);
     display: flex; align-items: center; gap: 6px;
   }
-
+ 
   /* ---------- About ---------- */
   .about-card {
     background: var(--bg-panel); border: 2px solid var(--border); border-radius: 22px;
@@ -149,7 +166,7 @@
   }
   .about-card p { color: var(--text-muted); font-size: 15.5px; margin: 0 0 12px; max-width: 58ch; }
   .about-card p:last-of-type { margin-bottom: 0; }
-
+ 
   /* ---------- Creations gallery ---------- */
   .creation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
   .creation-card {
@@ -171,7 +188,7 @@
     font-family: var(--font-mono); font-size: 11px; color: var(--sage);
     background: var(--sage-dim); border-radius: 6px; padding: 3px 8px;
   }
-
+ 
   /* ---------- Branded thumb (icon + wordmark, e.g. Mod Organizer) ---------- */
   .creation-thumb.branded {
     flex-direction: column; gap: 8px;
@@ -183,7 +200,22 @@
     font-family: var(--font-display); font-weight: 600; font-size: 15px;
     letter-spacing: 0.01em; text-align: center; padding: 0 10px;
   }
-
+ 
+  /* ---------- Announcement ---------- */
+  #news { padding-top: 24px; }
+  .announce {
+    background: var(--bg-panel); border: 2px solid var(--border); border-left: 8px solid var(--sage);
+    border-radius: 22px; padding: 34px;
+  }
+  .announce h2 { font-size: 28px; margin: 8px 0 12px; }
+  .announce p { color: var(--text-muted); font-size: 15.5px; max-width: 62ch; margin: 0 0 14px; }
+  .announce ul { margin: 0 0 20px; padding-left: 20px; color: var(--text); font-size: 15px; max-width: 62ch; }
+  .announce li { margin-bottom: 6px; }
+  .announce .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  a.btn-link { display: inline-block; text-align: center; font-family: var(--font-body); font-weight: 700; border-radius: 100px; }
+  a.btn-link.btn-primary { padding: 13px 26px; font-size: 15px; }
+  #modalLink { display: none; margin-top: 18px; }
+ 
   /* ---------- Detail modal (creation info + WIP) ---------- */
   .modal-overlay {
     position: fixed; inset: 0; background: rgba(74,53,36,0.45);
@@ -215,7 +247,7 @@
   .wip-box ul { margin: 0; padding-left: 18px; color: var(--text); font-size: 14px; }
   .wip-box li { margin-bottom: 5px; }
   .wip-box li:last-child { margin-bottom: 0; }
-
+ 
   /* ---------- Downloads ---------- */
   .download-list { display: flex; flex-direction: column; gap: 12px; }
   .download-row {
@@ -227,7 +259,7 @@
   .download-name { font-weight: 700; font-size: 15.5px; }
   .download-meta { font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); margin-top: 3px; }
   .download-meta .ver { color: var(--accent); }
-
+ 
   /* ---------- Requests / chatbox ---------- */
   .chat-panel {
     background: var(--bg-panel); border: 2px solid var(--border); border-radius: 22px;
@@ -246,7 +278,7 @@
   .chat-form input:focus, .chat-form textarea:focus { border-color: var(--accent); outline: none; }
   .chat-form textarea { min-height: 90px; }
   .form-note { font-size: 12.5px; color: var(--text-faint); margin-top: 10px; }
-
+ 
   .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
   .tab-btn {
     background: var(--bg); border: 2px solid var(--border); border-radius: 100px;
@@ -255,7 +287,7 @@
   .tab-btn.active { background: var(--accent); border-color: var(--accent); color: var(--white); }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
-
+ 
   /* ---------- Donations ---------- */
   .donate-card {
     background: var(--bg-panel); border: 2px solid var(--border); border-radius: 22px;
@@ -263,14 +295,14 @@
   }
   .donate-card .donate-emoji { font-size: 40px; margin-bottom: 10px; }
   .donate-card p.donate-msg { color: var(--text-muted); font-size: 15px; max-width: 38ch; margin: 0 auto 22px; }
-
+ 
   /* ---------- Footer ---------- */
   footer { border-top: 2px solid var(--border); padding: 28px 0 40px; }
   footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
   footer .foot-links { display: flex; gap: 18px; font-size: 13.5px; font-weight: 700; color: var(--text-muted); }
   footer .foot-links a:hover { color: var(--accent); }
   footer .copy { font-size: 12.5px; color: var(--text-faint); }
-
+ 
   @media (max-width: 780px) {
     .hero { grid-template-columns: 1fr; }
     .hero-art { order: -1; max-width: 260px; margin: 0 auto; }
@@ -279,7 +311,7 @@
     .donate-card { grid-template-columns: 1fr; text-align: center; }
     .nav-links { gap: 14px; font-size: 13px; }
   }
-
+ 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { transition: none !important; }
@@ -287,7 +319,7 @@
 </style>
 </head>
 <body>
-
+ 
 <nav>
   <div class="wrap">
     <a class="logo" href="#top">
@@ -295,6 +327,7 @@
       Hadesthoughts
     </a>
     <div class="nav-links">
+      <a href="#news">News</a>
       <a href="#about">About</a>
       <a href="#creations">Creations</a>
       <a href="#downloads">Downloads</a>
@@ -306,14 +339,14 @@
     </div>
   </div>
 </nav>
-
+ 
 <main id="top">
-
+ 
   <header class="hero wrap">
     <div>
       <p class="eyebrow">welcome to the burrow</p>
       <h1>Hi, I'm <span class="accent">Hadesthoughts</span> 🌾</h1>
-      <p class="lede">Sims 4 creator by hobby, currently paddling into Blender and game dev — sharing CC, builds, and whatever I make along the way.</p>
+      <p class="lede">Sims 4 creator by hobby — mods like the Noble Favors arranged marriage mod, plus tools, CC, and builds. Currently paddling into Blender and game dev too.</p>
       <div class="cta-row">
         <a href="#creations"><button class="btn-primary">See my creations</button></a>
         <a href="#donate"><button class="btn-secondary">Support the burrow</button></a>
@@ -345,7 +378,28 @@
       </svg>
     </div>
   </header>
-
+ 
+  <section id="news">
+    <div class="wrap">
+      <article class="announce">
+        <p class="eyebrow">new · work in progress</p>
+        <h2>Noble Favors: a Sims 4 arranged marriage mod</h2>
+        <p>Noble Favors adds arranged marriages for royal sims in The Sims 4. A rank 10 noble (king or queen level) can pair two sims from a new Noble Favors pie menu, and the match plays out with its own moods, betrothal status, and consequences.</p>
+        <ul>
+          <li>Arrange a marriage between any two sims from the Noble Favors menu</li>
+          <li>Arranged sims and their families react to the match, from grateful to "twice my age!"</li>
+          <li>Betrothed sims show up in the relationship panel, even if they've never met</li>
+          <li>Any sim can ask the monarch to approve a match, and unhappy sims can beg to end one</li>
+          <li>Breaking a betrothal costs both sims noble career ranks</li>
+        </ul>
+        <p>It's still in development. Progress updates and early access are on Patreon.</p>
+        <div class="cta-row">
+          <a class="btn-link btn-primary" href="https://www.patreon.com/Hadesmods/posts/w-i-p-noble-mod-171338170?pr=true" target="_blank" rel="noopener">Read the Patreon post 🌾</a>
+        </div>
+      </article>
+    </div>
+  </section>
+ 
   <section id="about">
     <div class="wrap">
       <div class="section-head">
@@ -361,7 +415,7 @@
       </div>
     </div>
   </section>
-
+ 
   <section id="creations">
     <div class="wrap">
       <div class="section-head">
@@ -372,7 +426,7 @@
       <div class="creation-grid" id="creationGrid"></div>
     </div>
   </section>
-
+ 
   <section id="downloads">
     <div class="wrap">
       <div class="section-head">
@@ -383,7 +437,7 @@
       <div class="download-list" id="downloadList"></div>
     </div>
   </section>
-
+ 
   <section id="requests">
     <div class="wrap">
       <div class="section-head">
@@ -391,12 +445,12 @@
         <h2>Requests &amp; feedback</h2>
         <p class="sub">Got an idea for something you'd like to see, or did something break? Pick a tab below — it opens a pre-filled email, nothing gets posted publicly.</p>
       </div>
-
+ 
       <div class="tabs">
         <button class="tab-btn active" data-tab="request" onclick="switchTab('request')">💡 Request something</button>
         <button class="tab-btn" data-tab="complaint" onclick="switchTab('complaint')">🫖 Something's wrong</button>
       </div>
-
+ 
       <div class="tab-panel active" id="tab-request">
         <div class="chat-panel">
           <div class="chat-bubble">Hey! Got a CC idea, a build request, or something you wish existed? Tell me here 🐹</div>
@@ -409,7 +463,7 @@
           </div>
         </div>
       </div>
-
+ 
       <div class="tab-panel" id="tab-complaint">
         <div class="chat-panel">
           <div class="chat-bubble">Something broken, missing, or just annoying? Let me know and I'll take a look 🫖</div>
@@ -425,7 +479,7 @@
       <p class="form-note">This opens your email app with the message pre-filled — nothing is stored or sent automatically.</p>
     </div>
   </section>
-
+ 
   <section id="donate">
     <div class="wrap">
       <div class="section-head">
@@ -443,7 +497,7 @@
       </div>
     </div>
   </section>
-
+ 
   <div class="modal-overlay" id="creationModal" onclick="if(event.target===this) closeModal()">
     <div class="modal-card">
       <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
@@ -455,11 +509,12 @@
         <span class="eyebrow">coming in the next version</span>
         <ul id="modalWipList"></ul>
       </div>
+      <a class="btn-link btn-primary" id="modalLink" href="#" target="_blank" rel="noopener"></a>
     </div>
   </div>
-
+ 
 </main>
-
+ 
 <footer>
   <div class="wrap">
     <p class="copy">🐹 made with love, one save file at a time</p>
@@ -472,7 +527,7 @@
     </div>
   </div>
 </footer>
-
+ 
 <script>
   // =====================================================================
   // EDIT ME: your basic info, gallery pieces, and downloads all live here.
@@ -480,19 +535,33 @@
   const CONFIG = {
     contactEmail: "alamututhanaa744@gmail.com",
   };
-
+ 
   // A little feather mark used as the wordmark icon for the Mod Organizer card.
   const FEATHER_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
     <path d="M20.24 3.76c-4.5-1-9.6 0-12.6 3-4 4-4 10-4 14 4 0 10 0 14-4 3-3 4-8.1 3-12.6-1.5 1-3.5 3-5 5-1.2 1.2-2.2 2.6-3 4"/>
     <path d="M9 15c2-2 4.5-4.5 6.5-6.5"/>
   </svg>`;
-
+ 
   // Add a new creation any time by adding an object to this list.
   // image: leave as null to show a placeholder emoji tile instead of a photo.
   // brand: optional { name } — shows the feather-style icon + wordmark instead of an emoji/image.
   // details: longer description shown in the pop-up.
   // wip: list of things planned for the next version.
   const creations = [
+    {
+      title: "Noble Favors (arranged marriage mod)",
+      description: "A work-in-progress Sims 4 arranged marriage mod for royal sims",
+      details: "Rank 10 nobles can arrange marriages between sims from a Noble Favors pie menu. Arranged sims get betrothal status and mood reactions, families react to rank and household, and sims can petition the monarch to approve or end a match. Follow development on Patreon.",
+      tags: ["Mod", "Work in progress"],
+      image: null,
+      emoji: "👑",
+      link: { label: "Read the Patreon post", url: "https://www.patreon.com/Hadesmods/posts/w-i-p-noble-mod-171338170?pr=true" },
+      wip: [
+        "Gift simoleons to recently promoted nobles",
+        "Match-history tracking that persists across saves",
+        "Optional add-on file for real deaths on a broken engagement",
+      ],
+    },
     {
       title: "Sims 4 Mod Organizer",
       description: "A mod organizer that helps you organize your mod folder without you having to do it manually",
@@ -509,7 +578,7 @@
       ],
     },
       ];
-
+ 
   // Add a new download the same way.
   const downloads = [
     {
@@ -520,7 +589,7 @@
       link: "https://github.com/user-attachments/files/29925791/Sims4ModOrganizer.zip",
     },
   ];
-
+ 
   function thumbHTML(c) {
     if (c.brand) {
       return `<div class="creation-thumb branded">${FEATHER_ICON}<span class="brand-name">${c.brand.name}</span></div>`;
@@ -528,7 +597,7 @@
     const inner = c.image ? `<img src="${c.image}" alt="${c.title}" />` : `${c.emoji || "🐹"}`;
     return `<div class="creation-thumb">${inner}</div>`;
   }
-
+ 
   const creationGrid = document.getElementById("creationGrid");
   creations.forEach((c, i) => {
     const card = document.createElement("div");
@@ -544,7 +613,7 @@
     `;
     creationGrid.appendChild(card);
   });
-
+ 
   function openModal(i) {
     const c = creations[i];
     document.getElementById("modalThumb").innerHTML = thumbHTML(c);
@@ -559,13 +628,21 @@
     } else {
       wipBox.style.display = "none";
     }
+    const linkEl = document.getElementById("modalLink");
+    if (c.link) {
+      linkEl.href = c.link.url;
+      linkEl.textContent = c.link.label;
+      linkEl.style.display = "inline-block";
+    } else {
+      linkEl.style.display = "none";
+    }
     document.getElementById("creationModal").classList.add("open");
   }
-
+ 
   function closeModal() {
     document.getElementById("creationModal").classList.remove("open");
   }
-
+ 
   const downloadList = document.getElementById("downloadList");
   downloads.forEach(d => {
     const row = document.createElement("div");
@@ -582,17 +659,17 @@
     `;
     downloadList.appendChild(row);
   });
-
+ 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeModal();
   });
-
+ 
   function switchTab(tab) {
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
     document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
     document.getElementById("tab-" + tab).classList.add("active");
   }
-
+ 
   function sendMail(type) {
     const isRequest = type === "request";
     const name = document.getElementById(isRequest ? "reqName" : "compName").value || "Anonymous";
@@ -603,6 +680,7 @@
     window.location.href = `mailto:${CONFIG.contactEmail}?subject=${subject}&body=${body}`;
   }
 </script>
-
+ 
 </body>
 </html>
+ 
